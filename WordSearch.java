@@ -52,10 +52,15 @@ public class WordSearch{
     public String toString(){
       String ans = "";
       for(int i=0;i<data.length;i++){
+        ans+="|";
         for(int j=0;j<data[i].length;j++){
-          ans+=data[i][j]+" ";
+          ans+=data[i][j];
+          if(j<data[i].length-1){
+            ans+=" ";
+          }
         }
-        ans+="\n";
+
+        ans+="|\n";
       }
       return ans;
     }
