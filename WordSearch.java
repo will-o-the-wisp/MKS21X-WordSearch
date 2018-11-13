@@ -25,11 +25,27 @@ public class WordSearch{
     public WordSearch(int rows, int cols, String fileName){
 
     }
-    public WordSearch( int rows, int cols, String fileName, int randSeed){
+    public WordSearch(int rows, int cols, String fileName, int randSeed){
 
     }
-    private boolean addWord( String word, int r, int c, int rowIncrement, int colIncrement){
-      return false;
+    public boolean addWord(String word, int r, int c, int rowIncrement, int colIncrement){
+      if(r+word.length()*rowIncrement>data.length||
+         r+word.length()*rowIncrement<-2||
+         c+word.length()*colIncrement>data[0].length||
+         c+word.length()*colIncrement<-2||
+         (rowIncrement==colIncrement&&rowIncrement==0)){
+           return false;
+      }
+      for(int i=0;i<word.length();i++){
+        if(data[r+i*rowIncrement][c+i*colIncrement]!='_'&&data[r+i*rowIncrement][c+i*colIncrement]
+        !=word.charAt(i)){
+          return false;
+        }
+      }
+      for(int i=0;i<word.length();i++){
+        data[r+i*rowIncrement][c+i*colIncrement]=word.charAt(i);
+      }
+      return true;
     }
     private void addAllWords(){
 
@@ -122,7 +138,7 @@ public class WordSearch{
         return false;
       }
       for(int i=0;i<word.length();i++){
-        if(data[row+i][col+i]!='_'&&data[row+i][col]!=word.charAt(i)){
+        if(data[row+i][col+i]!='_'&&data[row+i][col+i]!=word.charAt(i)){
           return false;
         }
       }
