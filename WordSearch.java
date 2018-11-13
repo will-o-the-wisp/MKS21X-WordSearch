@@ -1,6 +1,14 @@
+import java.util.Random;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
 public class WordSearch{
     private char[][]data;
-
+    private int seed;
+    private Random randgen;
+    private ArrayList<String>wordsToAdd;
+    private ArrayList<String>wordsAdded;
     /**Initialize the grid to the size specified
      *and fill all of the positions with '_'
      *@param rows is the starting height of the WordSearch
@@ -14,6 +22,19 @@ public class WordSearch{
         }
       }
     }
+    public WordSearch(int rows, int cols, String fileName){
+
+    }
+    public WordSearch( int rows, int cols, String fileName, int randSeed){
+
+    }
+    private boolean addWord( String word, int r, int c, int rowIncrement, int colIncrement){
+      return false;
+    }
+    private void addAllWords(){
+
+    }
+
 
     /**Set all values in the WordSearch to underscores'_'*/
     private void clear(){
