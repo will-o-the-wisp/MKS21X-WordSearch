@@ -44,6 +44,7 @@ public class WordSearch{
           data[i][j]='_';
         }
       }
+      addAllWords();
     }
     public WordSearch(int rows, int cols, String fileName, int randSeed){
       wordsToAdd = new ArrayList<String>();
@@ -67,12 +68,13 @@ public class WordSearch{
           data[i][j]='_';
         }
       }
+      addAllWords();
     }
-    public boolean addWord(String word, int r, int c, int rowIncrement, int colIncrement){
+    private boolean addWord(String word, int r, int c, int rowIncrement, int colIncrement){
       if(r+word.length()*rowIncrement>data.length||
-         r+word.length()*rowIncrement<-2||
+         r+word.length()*rowIncrement<-1||
          c+word.length()*colIncrement>data[0].length||
-         c+word.length()*colIncrement<-2||
+         c+word.length()*colIncrement<-1||
          (rowIncrement==colIncrement&&rowIncrement==0)){
            return false;
       }
@@ -88,7 +90,29 @@ public class WordSearch{
       return true;
     }
     private void addAllWords(){
-
+      int tries = 0;
+      int fails = 0;
+      while(wordsToAdd.size()>0&&fails<data.length*data[0].length){
+        String word = wordsToAdd.get(Math.abs(randgen.nextInt())%wordsToAdd.size());
+        int ri = Math.abs(randgen.nextInt())%3-1;
+        int ci = Math.abs(randgen.nextInt())%3-1;
+        while(tries<data.length*data[0].length){
+          if(!addWord(word,Math.abs(randgen.nextInt())%data.length,
+                      Math.abs(randgen.nextInt())%data[0].length,
+                      ri, ci))
+                  {
+                    tries++;
+                  }
+          else{
+            wordsAdded.add(word);
+            wordsToAdd.remove(word);
+            tries=data.length*data[0].length;
+            fails=0;
+          }
+        }
+        tries=0;
+        fails++;
+      }
     }
 
 
@@ -119,9 +143,9 @@ public class WordSearch{
         ans+="|\n";
       }
       ans+="Words:";
-      for(int i=0;i<wordsToAdd.size();i++){
-        ans+=wordsToAdd.get(i) + " ";
-      }
+    //  for(int i=0;i<wordsToAdd.size();i++){
+  //      ans+=wordsToAdd.get(i) + " ";
+//      }
       for(int i=0;i<wordsAdded.size();i++){
         ans+=wordsAdded.get(i) + " ";
       }
