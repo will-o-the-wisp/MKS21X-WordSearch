@@ -23,10 +23,50 @@ public class WordSearch{
       }
     }
     public WordSearch(int rows, int cols, String fileName){
-
+      wordsToAdd = new ArrayList<String>();
+      wordsAdded = new ArrayList<String>();
+      seed = (int)(Math.random()*100000);
+      randgen = new Random(seed);
+      try{
+        File f = new File(fileName);
+        Scanner s = new Scanner(f);
+        while(s.hasNext()){
+          wordsToAdd.add(s.next().toUpperCase());
+        }
+      }catch(FileNotFoundException e){
+        System.out.println("File not found: "+fileName);
+        e.printStackTrace();
+        System.exit(0);
+      }
+      data = new char[rows][cols];
+      for(int i=0;i<rows;i++){
+        for(int j=0;j<cols;j++){
+          data[i][j]='_';
+        }
+      }
     }
     public WordSearch(int rows, int cols, String fileName, int randSeed){
-
+      wordsToAdd = new ArrayList<String>();
+      wordsAdded = new ArrayList<String>();
+      seed = randSeed;
+      randgen = new Random(seed);
+      try{
+        File f = new File(fileName);
+        Scanner s = new Scanner(f);
+        while(s.hasNext()){
+          wordsToAdd.add(s.next().toUpperCase());
+        }
+      }catch(FileNotFoundException e){
+        System.out.println("File not found: "+fileName);
+        e.printStackTrace();
+        System.exit(0);
+      }
+      data = new char[rows][cols];
+      for(int i=0;i<rows;i++){
+        for(int j=0;j<cols;j++){
+          data[i][j]='_';
+        }
+      }
     }
     public boolean addWord(String word, int r, int c, int rowIncrement, int colIncrement){
       if(r+word.length()*rowIncrement>data.length||
@@ -78,6 +118,14 @@ public class WordSearch{
 
         ans+="|\n";
       }
+      ans+="Words:";
+      for(int i=0;i<wordsToAdd.size();i++){
+        ans+=wordsToAdd.get(i) + " ";
+      }
+      for(int i=0;i<wordsAdded.size();i++){
+        ans+=wordsAdded.get(i) + " ";
+      }
+      ans+="(seed: "+seed+")";
       return ans;
     }
 
