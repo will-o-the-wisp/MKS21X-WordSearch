@@ -14,18 +14,34 @@ public class WordSearch{
      *@param rows is the starting height of the WordSearch
      *@param cols is the starting width of the WordSearch
      */
+    public static void main(String[] args){
+      if(args.length<3){
+        System.out.println("explain this");
+      }
+      else if(args.length==3){
+        int givenSeed = (int)(Math.random()*10000);
+        WordSearch WS = new WordSearch(Integer.parseInt(args[0]),
+                   Integer.parseInt(args[1]),
+                   args[2],
+                   givenSeed);
+        System.out.println(WS);
+      }
+      else{
+        WordSearch WS = new WordSearch(Integer.parseInt(args[0]),
+                   Integer.parseInt(args[1]),
+                   args[2],
+                   Integer.parseInt(args[3]));
+        System.out.println(WS);
+      }
+    }
     public WordSearch(int rows,int cols){
       data = new char[rows][cols];
-      for(int i=0;i<rows;i++){
-        for(int j=0;j<cols;j++){
-          data[i][j]='_';
-        }
-      }
+      clear();
     }
     public WordSearch(int rows, int cols, String fileName){
       wordsToAdd = new ArrayList<String>();
       wordsAdded = new ArrayList<String>();
-      seed = (int)(Math.random()*100000);
+      seed = (int)(Math.random()*10000);
       randgen = new Random(seed);
       try{
         File f = new File(fileName);
@@ -39,11 +55,7 @@ public class WordSearch{
         System.exit(0);
       }
       data = new char[rows][cols];
-      for(int i=0;i<rows;i++){
-        for(int j=0;j<cols;j++){
-          data[i][j]='_';
-        }
-      }
+      clear();
       addAllWords();
     }
     public WordSearch(int rows, int cols, String fileName, int randSeed){
@@ -63,11 +75,7 @@ public class WordSearch{
         System.exit(0);
       }
       data = new char[rows][cols];
-      for(int i=0;i<rows;i++){
-        for(int j=0;j<cols;j++){
-          data[i][j]='_';
-        }
-      }
+      clear();
       addAllWords();
     }
     private boolean addWord(String word, int r, int c, int rowIncrement, int colIncrement){
