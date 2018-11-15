@@ -32,10 +32,13 @@ public class WordSearch{
                    Integer.parseInt(args[1]),
                    args[2],
                    Integer.parseInt(args[3]));
-        System.out.println(WS);
-        if(args.length>4&&args[4]=="key"){
-
+        if(args.length==4||!args[4].equals("key")){
+          WS.fillInLetters();
         }
+        else{
+          WS.cleanUnderscores();
+        }
+        System.out.println(WS);
       }
     }
     public WordSearch(int rows, int cols, String fileName, int randSeed){
