@@ -24,6 +24,7 @@ public class WordSearch{
                    Integer.parseInt(args[1]),
                    args[2],
                    givenSeed);
+        WS.fillInLetters();
         System.out.println(WS);
       }
       else{
@@ -32,6 +33,9 @@ public class WordSearch{
                    args[2],
                    Integer.parseInt(args[3]));
         System.out.println(WS);
+        if(args.length>4&&args[4]=="key"){
+
+        }
       }
     }
     public WordSearch(int rows, int cols, String fileName, int randSeed){
@@ -55,7 +59,13 @@ public class WordSearch{
       addAllWords();
     }
     private void fillInLetters(){
-
+      for(int i=0;i<data.length;i++){
+        for(int j=0;j<data[i].length;j++){
+          if(data[i][j]=='_'){
+            data[i][j]=(char)(65+Math.abs(randgen.nextInt())%26);
+          }
+        }
+      }
     }
     private void cleanUnderscores(){
       for(int i=0;i<data.length;i++){
