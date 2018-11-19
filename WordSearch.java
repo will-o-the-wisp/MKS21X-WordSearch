@@ -14,9 +14,11 @@ public class WordSearch{
      *@param rows is the starting height of the WordSearch
      *@param cols is the starting width of the WordSearch
      */
+    private static String errormsg;
     public static void main(String[] args){
+      errormsg = "WordSearch can be run using the command\n java WordSearch [rows cols filename [randomSeed [answers]]]";
       if(args.length<3){
-        System.out.println("explain this");
+        System.out.println(errormsg);
       }
       else if(args.length==3){
         int givenSeed = (int)(Math.random()*10000);
@@ -47,17 +49,19 @@ public class WordSearch{
       seed = randSeed;
       randgen = new Random(seed);
       try{
+        if(rows < 1 || cols < 1 || seed < 0 || seed > 10000){
+          throw new IllegalArgumentException();
+        }
         File f = new File(fileName);
         Scanner s = new Scanner(f);
         while(s.hasNext()){
           wordsToAdd.add(s.next().toUpperCase());
+        data = new char[rows][cols];
         }
-      }catch(FileNotFoundException e){
-        System.out.println("File not found: "+fileName);
-        e.printStackTrace();
+      }catch(FileNotFoundException | IllegalArgumentException e){
+        System.out.println(errormsg);
         System.exit(0);
       }
-      data = new char[rows][cols];
       clear();
       addAllWords();
     }
